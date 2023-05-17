@@ -1,0 +1,111 @@
+package paqueteuno;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class EjecutarGestionE {
+
+    public static void main(String[] args) {
+        System.out.println("Gestion de una lista de empleados");
+        List<Empleado> listaEmpleados = new ArrayList<>();
+        
+
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            
+            System.out.println("------ MENÚ ------");
+            System.out.println("1. Agregar un empleado");
+            System.out.println("2. Mostrar información de los empleados");
+            System.out.println("3. Calcular aumento de salario");
+            System.out.println("4. Salir");
+            System.out.print("Ingrese su opción: ");
+            int opcion = sc.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    // Opción 1: Agregar un empleado
+                    agregarEmpleado(listaEmpleados, sc);
+                    break;
+                case 2:
+                    // Opción 2: Mostrar información de los empleados
+                    mostrarInformacionEmpleados(listaEmpleados);
+                    break;
+                case 3:
+                    // Opción 3: Calcular aumento de salario
+                    calcularAumentoSalario(listaEmpleados, sc);
+                    break;
+                case 4:
+                    // Opción 4: Salir del programa
+                    System.out.println("Saliendo del programa...");
+                    return;
+                default:
+                    System.out.println("Opción inválida. Intente nuevamente.");
+                    break;
+            }
+        }
+    }
+
+    public static void agregarEmpleado(List<Empleado> listaEmpleados, Scanner scanner) {
+        System.out.print("Ingrese el nombre del empleado: ");
+        scanner.nextLine();//salto de línea anterior
+        String nombre = scanner.nextLine();
+
+        System.out.print("Ingrese el salario del empleado: ");
+        double salario = scanner.nextDouble();
+
+        System.out.print("Ingrese la edad del empleado: ");
+        int edad = scanner.nextInt();
+        
+        // Creamos un objeto de la clase Empleado y agregarlo a la lista
+        Empleado empleado = new Empleado(nombre, salario, edad);
+        listaEmpleados.add(empleado);
+
+        System.out.println("Empleado agregado con exito.");
+    }
+
+    public static void mostrarInformacionEmpleados(List<Empleado> listaEmpleados) {
+        if (listaEmpleados.isEmpty()) {
+            System.out.println("No hay empleados registrados.");
+        } else {
+            System.out.println("------ LISTA DE EMPLEADOS ------");
+            // Imprimir la información del empleado utilizando el método mostrarInformacion()
+            for (Empleado empleado : listaEmpleados) {
+                System.out.println(empleado.mostrarInformacion());
+            }
+        }
+    }    
+}
+//Clase Empleado
+package paqueteuno;
+
+import java.io.InputStream;
+
+public class Empleado {
+    private String nombre;
+    private double salario;
+    private int edad;
+    
+    public Empleado(String nombre, double salario, int edad) {
+    this.nombre = nombre;
+    this.salario = salario;
+    this.edad = edad;
+
+}
+
+public String getNombre() {
+    return nombre;
+}
+
+public double getSalario() {
+    return salario;
+}
+
+public void aumentarSalario(double aumento) {
+    salario += aumento;
+}
+
+public String mostrarInformacion() {
+    return "Nombre: " + nombre + ", Salario: $" + salario + ", Edad: " + edad;
+}
+}
