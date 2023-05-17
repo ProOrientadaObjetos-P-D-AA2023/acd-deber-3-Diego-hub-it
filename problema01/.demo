@@ -1,1 +1,90 @@
+package paqueteuno;
 
+import java.util.Scanner;
+
+public class EjecutorVenta {
+
+    public static void main(String[] args) {
+        System.out.println("Sistema de venta");
+        String nombreproducto;
+        int numproducto;
+        double precio;
+        
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Ingrese el nombre del producto");
+        nombreproducto = sc.nextLine();
+        System.out.println("Ingrese la cantidad del producto");
+        numproducto = sc.nextInt();
+        System.out.println("Ingrese el precio del producto");
+        precio = sc.nextDouble();
+        
+        AutomatizacionVenta av = new AutomatizacionVenta();
+        
+        av.setProducto(nombreproducto);
+        av.setNumeroproducto(numproducto);
+        av.setPrecio(precio);
+        av.establecerSumap();
+        av.calcularDescuento();
+        av.calcularPrecioF();
+        
+        System.out.println("El precio de "+ av.getProducto() +" es de "+ av.getPrecio() +" y la cantidad de "+ av.getNumeroproducto()
+        +" unidades, tiene un costo inicial de "+ av.obtenerSumaP());
+        System.out.println("El descuento aplicado a su producto es: "+ av.obtenerDescuento());
+        System.out.println("El precio final del producto seria: "+ av.obtenerPrecioF());
+    }
+}
+//Clase AutomatizarVenta
+package paqueteuno;
+   
+public class AutomatizacionVenta {
+    private String producto;
+    private int numeroproducto;
+    private double precio, sumap, descuento, precioF;
+
+    public String getProducto() {
+        return producto;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+
+    public int getNumeroproducto() {
+        return numeroproducto;
+    }
+
+    public void setNumeroproducto(int numeroproducto) {
+        this.numeroproducto = numeroproducto;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    public void establecerSumap(){
+        sumap = numeroproducto * precio;
+    }
+    public void calcularDescuento(){
+        if(sumap >= 1000 && numeroproducto >= 10){
+            descuento = sumap * 0.10;
+        }else{
+            descuento = sumap * 0.05;
+        }
+    }
+    public void calcularPrecioF(){
+        precioF = sumap - descuento;
+    }
+    public double obtenerDescuento(){
+        return descuento;
+    }
+    public double obtenerPrecioF(){
+        return precioF;
+    }
+    public double obtenerSumaP(){
+        return sumap;
+    }
+}
